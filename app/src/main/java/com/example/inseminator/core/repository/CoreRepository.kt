@@ -211,4 +211,26 @@ class CoreRepository (private val remoteDataSource: RemoteDataSource)  {
         catch (e: Exception){emit(Resource.error(e.message?:"Terjadi Kesalahan", null))}
     }
 
+    fun notifikasi(token: String) = flow {
+        emit(Resource.loading(null))
+        try {
+            remoteDataSource.notifikasi(token).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    val user = body?.data
+                    emit(Resource.success(user))
+                } else {
+                    emit(
+                        Resource.error(
+                            it.getErrorBody(DataResponse::class.java)?.message ?: "",
+                            null
+                        )
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
 }

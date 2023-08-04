@@ -17,4 +17,5 @@ class RemoteDataSource (private val apiService : ApiService){
     suspend fun history (token:String) = apiService.history(token)
     suspend fun pengajuan (token:String) = apiService.pengajuan(token)
     suspend fun konfirmasi (id:Int, token: String, konfirmasiRequest: KonfirmasiRequest) = apiService.konfrimasi(id, token, konfirmasiRequest)
+    suspend fun notifikasi (token:String) = apiService.notifikasi(token)
 }

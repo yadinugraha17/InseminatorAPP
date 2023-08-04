@@ -10,6 +10,7 @@ import com.example.inseminator.core.data.api.response.item.KonfirmasiItem
 import com.example.inseminator.core.data.api.response.item.PengajuanItem
 import com.example.myapplication.core.data.api.response.item.PendItem
 import com.example.inseminator.core.data.api.response.item.ProfileItem
+import com.example.myapplication.core.data.api.response.item.NotifikasiItem
 import com.example.myapplication.core.data.api.response.item.ProvinceItem
 import com.example.myapplication.core.data.api.response.item.RegencyItem
 import com.example.myapplication.core.data.api.response.item.RumpunItem
@@ -58,4 +59,7 @@ interface ApiService {
 
     @PUT("insiminasi/{id}")
     suspend fun konfrimasi(@Path("id") id: Int, @Header("Authorization") token: String , @Body konfirmasiRequest: KonfirmasiRequest): Response<DataResponse<List<KonfirmasiItem>>>
+
+    @GET("notifikasi")
+    suspend fun notifikasi(@Header("Authorization") token: String): Response<DataResponse<List<NotifikasiItem>>>
 }

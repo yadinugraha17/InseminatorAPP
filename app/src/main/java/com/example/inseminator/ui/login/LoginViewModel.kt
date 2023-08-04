@@ -22,4 +22,5 @@ class LoginViewModel (private val coreRepository: CoreRepository):ViewModel() {
     fun history (token: String)= coreRepository.history(token).asLiveData()
     fun pengajuan (token: String)= coreRepository.pengajuan(token).asLiveData()
     fun konfirmasi (id:Int, token: String, konfirmasiRequest: KonfirmasiRequest)= coreRepository.konfirmasi(id, token, konfirmasiRequest).asLiveData()
+    fun notifikasi (token: String)= coreRepository.notifikasi(token).asLiveData()
 }
