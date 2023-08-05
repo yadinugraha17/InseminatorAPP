@@ -50,10 +50,10 @@ class HistoryActivity : BaseActivity() {
                             HistoryAdapter.OnItemClickCallback {
                             override fun onItemClicked(news: HistoryItem) {
                                 val json = Gson().toJson(news)
-//                                val intent = Intent(
-//                                    this@HistoryActivity,
-//                                    DetailHistoryActivity::class.java
-//                                )
+                                val intent = Intent(
+                                    this@HistoryActivity,
+                                    DetailHistoryActivity::class.java
+                                )
                                 intent.putExtra("history", json)
                                 startActivity(intent)
 

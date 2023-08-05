@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
+import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.item.KonfirmasiItem
 import com.example.inseminator.core.repository.CoreRepository
 import okhttp3.MultipartBody
@@ -22,5 +23,6 @@ class LoginViewModel (private val coreRepository: CoreRepository):ViewModel() {
     fun history (token: String)= coreRepository.history(token).asLiveData()
     fun pengajuan (token: String)= coreRepository.pengajuan(token).asLiveData()
     fun konfirmasi (id:Int, token: String, konfirmasiRequest: KonfirmasiRequest)= coreRepository.konfirmasi(id, token, konfirmasiRequest).asLiveData()
+    fun upbunting (id:Int, token: String, upbuntingRequest: UpbuntingRequest)= coreRepository.upbunting(id, token, upbuntingRequest).asLiveData()
     fun notifikasi (token: String)= coreRepository.notifikasi(token).asLiveData()
 }

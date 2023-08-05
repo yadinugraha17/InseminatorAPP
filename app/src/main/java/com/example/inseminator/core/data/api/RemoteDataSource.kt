@@ -3,6 +3,7 @@ package com.example.inseminator.core.data.api
 import com.example.inseminator.core.data.api.network.ApiService
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
+import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.item.KonfirmasiItem
 
 class RemoteDataSource (private val apiService : ApiService){
@@ -17,5 +18,6 @@ class RemoteDataSource (private val apiService : ApiService){
     suspend fun history (token:String) = apiService.history(token)
     suspend fun pengajuan (token:String) = apiService.pengajuan(token)
     suspend fun konfirmasi (id:Int, token: String, konfirmasiRequest: KonfirmasiRequest) = apiService.konfrimasi(id, token, konfirmasiRequest)
+    suspend fun upbunting (id:Int, token: String, upbuntingRequest: UpbuntingRequest) = apiService.upbunting(id, token, upbuntingRequest)
     suspend fun notifikasi (token:String) = apiService.notifikasi(token)
 }

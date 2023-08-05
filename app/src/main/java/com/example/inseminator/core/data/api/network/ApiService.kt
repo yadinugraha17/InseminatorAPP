@@ -2,6 +2,7 @@ package com.example.inseminator.core.data.api.network
 
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
+import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.DataResponse
 import com.example.inseminator.core.data.api.response.LoginRespon
 import com.example.inseminator.core.data.api.response.item.DistrictItem
@@ -59,6 +60,9 @@ interface ApiService {
 
     @PUT("insiminasi/{id}")
     suspend fun konfrimasi(@Path("id") id: Int, @Header("Authorization") token: String , @Body konfirmasiRequest: KonfirmasiRequest): Response<DataResponse<List<KonfirmasiItem>>>
+
+    @PUT("update/kebuntingan/{id}")
+    suspend fun upbunting(@Path("id") id: Int, @Header("Authorization") token: String , @Body upbuntingRequest: UpbuntingRequest): Response<DataResponse<List<KonfirmasiItem>>>
 
     @GET("notifikasi")
     suspend fun notifikasi(@Header("Authorization") token: String): Response<DataResponse<List<NotifikasiItem>>>

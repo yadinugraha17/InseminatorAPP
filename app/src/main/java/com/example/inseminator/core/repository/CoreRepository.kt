@@ -4,6 +4,7 @@ import com.example.inseminator.core.data.api.RemoteDataSource
 import com.example.inseminator.core.data.api.network.Resource
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
+import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.DataResponse
 import com.example.inseminator.core.data.api.response.LoginRespon
 import com.example.inseminator.core.data.api.response.item.KonfirmasiItem
@@ -198,6 +199,22 @@ class CoreRepository (private val remoteDataSource: RemoteDataSource)  {
         emit(Resource.loading(null))
         try {
             remoteDataSource.konfirmasi(id, token, konfirmasiRequest).let {
+                if (it.isSuccessful){
+                    val body = it.body()
+                    val user = body?.data
+                    emit(Resource.success(user))
+                }
+                else {
+                    emit(Resource.error(it.getErrorBody(DataResponse::class.java)?.message ?:"", null))
+                }
+            }
+        }
+        catch (e: Exception){emit(Resource.error(e.message?:"Terjadi Kesalahan", null))}
+    }
+    fun upbunting (id: Int, token: String, upbuntingRequest: UpbuntingRequest) = flow {
+        emit(Resource.loading(null))
+        try {
+            remoteDataSource.upbunting(id, token, upbuntingRequest).let {
                 if (it.isSuccessful){
                     val body = it.body()
                     val user = body?.data
