@@ -8,6 +8,7 @@ import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.DataResponse
 import com.example.inseminator.core.data.api.response.LoginRespon
 import com.example.inseminator.core.data.api.response.item.KonfirmasiItem
+import com.example.myapplication.core.data.api.response.item.NotifItem
 import com.inyongtisto.myhelper.extension.getErrorBody
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
@@ -243,6 +244,38 @@ class CoreRepository (private val remoteDataSource: RemoteDataSource)  {
                             null
                         )
                     )
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
+    fun countnotif(token: String) = flow {
+        emit(Resource.loading(null))
+        try {
+            remoteDataSource.countnotif(token).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    emit(Resource.success(body))
+                } else {
+                    emit(Resource.error(it.getErrorBody(NotifItem::class.java)?.status ?: "", null))
+                }
+            }
+        } catch (e: Exception) {
+            emit(Resource.error(e.message ?: "Terjadi Kesalahan", null))
+        }
+    }
+
+    fun upnotif(token: String, id: Int) = flow {
+        emit(Resource.loading(null))
+        try {
+            remoteDataSource.upnotif(token, id).let {
+                if (it.isSuccessful) {
+                    val body = it.body()
+                    emit(Resource.success(body))
+                } else {
+                    emit(Resource.error(it.getErrorBody(NotifItem::class.java)?.status ?: "", null))
                 }
             }
         } catch (e: Exception) {

@@ -11,6 +11,7 @@ import com.example.inseminator.core.data.api.response.item.KonfirmasiItem
 import com.example.inseminator.core.data.api.response.item.PengajuanItem
 import com.example.myapplication.core.data.api.response.item.PendItem
 import com.example.inseminator.core.data.api.response.item.ProfileItem
+import com.example.myapplication.core.data.api.response.item.NotifItem
 import com.example.myapplication.core.data.api.response.item.NotifikasiItem
 import com.example.myapplication.core.data.api.response.item.ProvinceItem
 import com.example.myapplication.core.data.api.response.item.RegencyItem
@@ -66,4 +67,10 @@ interface ApiService {
 
     @GET("notifikasi")
     suspend fun notifikasi(@Header("Authorization") token: String): Response<DataResponse<List<NotifikasiItem>>>
+
+    @GET("jumlah/notifikasi")
+    suspend fun countnotif(@Header("Authorization") token: String): Response<NotifItem>
+
+    @PUT("update/notifikasi/{id}")
+    suspend fun upnotif(@Header("Authorization") token: String, @Path("id") id: Int): Response<NotifItem>
 }

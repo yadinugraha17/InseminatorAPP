@@ -1,60 +1,109 @@
 package com.example.inseminator.ui.profile
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.ViewModelProvider
 import com.example.inseminator.R
+import com.example.inseminator.core.data.api.network.State
+import com.example.inseminator.core.session.SessionRepository
+import com.example.inseminator.core.session.SessionViewModel
+import com.example.inseminator.core.utilis.ViewModelUserFactory
+import com.example.inseminator.databinding.FragmentProfileBinding
+import com.example.inseminator.ui.login.LoginActivity
+import com.example.inseminator.ui.login.LoginActivity.Companion.TOKEN_KEY
+import com.example.inseminator.ui.login.LoginViewModel
+import com.inyongtisto.myhelper.base.BaseFragment
+import com.inyongtisto.myhelper.extension.toastError
+import com.inyongtisto.myhelper.extension.toastSuccess
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+class ProfileFragment : BaseFragment() {
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding
+    private var root: View? = null
+    private val viewModel: LoginViewModel by viewModel()
+    private lateinit var sessionViewModel: SessionViewModel
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("settings")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        _binding = FragmentProfileBinding.inflate(layoutInflater)
+        root = binding?.root
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        profile()
+        sessionViewModel = ViewModelProvider(
+            this,
+            ViewModelUserFactory(SessionRepository.getInstance(requireContext().dataStore))
+        )[SessionViewModel::class.java]
+        binding?.btLogout?.setOnClickListener {
+            logout()
+        }
+
+    }
+
+    private fun profile() {
+        viewModel.profile("Bearer $TOKEN_KEY")
+            .observe(viewLifecycleOwner) {
+                when (it.state) {
+                    State.SUCCESS -> {
+                        val respons = it.data
+                        binding?.tvNik?.text = respons!![0].nik
+                        binding?.name?.text = respons[0].nama
+                        binding?.tvNohp?.text = respons[0].no_hp
+                        binding?.tvPend?.text = respons[0].pendidikan.nama
+                        binding?.tvAlamat?.text = respons[0].alamat
+                        binding?.tvProv?.text = respons[0].province.name
+                        binding?.tvRegency?.text = respons[0].regency.name
+                        binding?.tvDistrict?.text = respons[0].district.name
+                        binding?.tvVillage?.text = respons[0].village.name
+                        progress.dismiss()
+                    }
+
+                    State.LOADING -> {
+                        progress.show()
+                    }
+
+                    State.ERROR -> {
+                        progress.dismiss()
+                        toastError(it.message.toString())
+                    }
                 }
             }
+    }
+
+    private fun logout(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Ya") { _, _ ->
+            sessionViewModel.logout()
+            toastSuccess("Logout Berhasil")
+            val intent = Intent(requireActivity(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            requireActivity().finishAndRemoveTask()
+        }
+
+        builder.setNegativeButton("Batal") { _, _ -> }
+        builder.setTitle("Anda yakin akan keluar? ")
+        builder.setMessage("Klik Ya jika ingin keluar!!")
+        builder.create().show()
+
     }
 }

@@ -25,4 +25,6 @@ class LoginViewModel (private val coreRepository: CoreRepository):ViewModel() {
     fun konfirmasi (id:Int, token: String, konfirmasiRequest: KonfirmasiRequest)= coreRepository.konfirmasi(id, token, konfirmasiRequest).asLiveData()
     fun upbunting (id:Int, token: String, upbuntingRequest: UpbuntingRequest)= coreRepository.upbunting(id, token, upbuntingRequest).asLiveData()
     fun notifikasi (token: String)= coreRepository.notifikasi(token).asLiveData()
+    fun countnotif(token: String)=coreRepository.countnotif(token).asLiveData()
+    fun upnotif(token: String, id: Int)=coreRepository.upnotif(token, id).asLiveData()
 }

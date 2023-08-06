@@ -54,4 +54,14 @@
     <string name="text_konfbunting">Konfirmasi Bunting</string>
     <string name="text_tglpkb">Tanggal Bunting</string>
     <string name="text_infoib">Informasi Inseminasi</string>
+    <string name="text_Profile">Profile</string>
+    <string name="text_nik">Nik</string>
+    <string name="text_pend">Pendidikan</string>
+    <string name="text_alamat">Alamat</string>
+    <string name="text_prov">Provinsi</string>
+    <string name="text_daerah">Kabupaten</string>
+    <string name="text_regexncy">Kabupaten</string>
+    <string name="text_kec">Kecamatan</string>
+    <string name="text_desa">Desa</string>
+    <string name="text_logout">Logout</string>
 </resources>
