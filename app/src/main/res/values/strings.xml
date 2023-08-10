@@ -65,4 +65,10 @@
     <string name="text_desa">Desa</string>
     <string name="text_logout">Logout</string>
     <string name="text_MI">Inseminasi Management</string>
+    <string name="text_EditProfile">Edit Profile</string>
+    <string name="text_berternak">Lama Berternak</string>
+    <string name="text_save">Simpan</string>
+    <string name="text_kab">Kabupaten</string>
+    <string name="text_Edit">Edit</string>
+    <string name="text_editpass">Edit Password</string>
 </resources>

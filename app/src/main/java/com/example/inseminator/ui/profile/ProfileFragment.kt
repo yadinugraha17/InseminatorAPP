@@ -55,6 +55,14 @@ class ProfileFragment : BaseFragment() {
         binding?.btLogout?.setOnClickListener {
             logout()
         }
+        binding?.btEdit?.setOnClickListener {
+            val intent = Intent (requireContext(), EditProfileActivity::class.java)
+            startActivity(intent)
+        }
+        binding?.btEditpass?.setOnClickListener {
+            val intent = Intent (requireContext(), EditProfileActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

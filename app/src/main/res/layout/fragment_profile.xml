@@ -36,6 +36,14 @@
                     android:layout_marginStart="@dimen/_113sdp"
                     style="@style/poppins_semibold_style2"
                     android:text="@string/text_Profile" />
+                <Button
+                    android:id="@+id/bt_logout"
+                    android:layout_width="@dimen/_53sdp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:drawableLeft="@drawable/baseline_logout_24"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_50sdp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -311,13 +319,19 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:gravity="center">
                 <Button
-                    android:id="@+id/bt_logout"
+                    android:id="@+id/bt_edit"
                     android:layout_width="@dimen/_110sdp"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
-                    android:drawableLeft="@drawable/baseline_logout_24"
+                    android:drawableLeft="@drawable/baseline_edit_24"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@string/text_logout"/>
+                    android:text="@string/text_EditProfile"/>
+                <Button
+                    android:id="@+id/bt_editpass"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/baseline_lock_reset_24"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:text="@string/text_editpass"/>
             </LinearLayout>
 
         </LinearLayout>

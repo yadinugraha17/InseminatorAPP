@@ -2,6 +2,7 @@ package com.example.inseminator.core.data.api.network
 
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
+import com.example.inseminator.core.data.api.request.ProfileRequest
 import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.DataResponse
 import com.example.inseminator.core.data.api.response.LoginRespon
@@ -31,6 +32,8 @@ interface ApiService {
 
     @GET("detail-insiminator")
     suspend fun profile(@Header("Authorization") token: String): Response<DataResponse<List<ProfileItem>>>
+    @POST("update/insiminator")
+    suspend fun editprofile(@Header("Authorization") token: String, profile: ProfileRequest): Response<DataResponse<List<ProfileItem>>>
 
     @GET("provinsi")
     suspend fun province(): Response<DataResponse<List<ProvinceItem>>>

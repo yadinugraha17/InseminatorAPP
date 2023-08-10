@@ -4,6 +4,7 @@ import com.example.inseminator.core.data.api.RemoteDataSource
 import com.example.inseminator.core.data.api.network.Resource
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
+import com.example.inseminator.core.data.api.request.ProfileRequest
 import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.DataResponse
 import com.example.inseminator.core.data.api.response.LoginRespon
@@ -128,10 +129,10 @@ class CoreRepository (private val remoteDataSource: RemoteDataSource)  {
         }
         catch (e: Exception){emit(Resource.error(e.message?:"Terjadi Kesalahan", null))}
     }
-    fun editprofil (token:String)= flow {
+    fun editprofil (token:String, data: ProfileRequest)= flow {
         emit(Resource.loading(null))
         try {
-            remoteDataSource.profile(token).let {
+            remoteDataSource.editprofil(token, data).let {
                 if (it.isSuccessful){
                     val body = it.body()
                     val user = body?.data
