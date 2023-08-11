@@ -17,34 +17,35 @@
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/profil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            style="@style/poppins_semibold_style2"
+            android:text="@string/text_Profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/menu"/>
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/baseline_more_vert_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/profil">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginStart="@dimen/_113sdp"
-                    style="@style/poppins_semibold_style2"
-                    android:text="@string/text_Profile" />
-                <Button
-                    android:id="@+id/bt_logout"
-                    android:layout_width="@dimen/_53sdp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/red"
-                    android:drawableLeft="@drawable/baseline_logout_24"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginStart="@dimen/_50sdp"/>
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -310,28 +311,6 @@
                     android:text="@string/text_desa"
                     android:padding="@dimen/_10sdp"
                     android:textSize="@dimen/_14ssp" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:gravity="center">
-                <Button
-                    android:id="@+id/bt_edit"
-                    android:layout_width="@dimen/_110sdp"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/baseline_edit_24"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@string/text_EditProfile"/>
-                <Button
-                    android:id="@+id/bt_editpass"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/baseline_lock_reset_24"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:text="@string/text_editpass"/>
             </LinearLayout>
 
         </LinearLayout>

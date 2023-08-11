@@ -32,8 +32,8 @@ interface ApiService {
 
     @GET("detail-insiminator")
     suspend fun profile(@Header("Authorization") token: String): Response<DataResponse<List<ProfileItem>>>
-    @POST("update/insiminator")
-    suspend fun editprofile(@Header("Authorization") token: String, profile: ProfileRequest): Response<DataResponse<List<ProfileItem>>>
+    @PUT("update/insiminator")
+    suspend fun editprofile(@Header("Authorization") token: String,  @Body profile: ProfileRequest): Response<DataResponse<List<ProfileItem>>>
 
     @GET("provinsi")
     suspend fun province(): Response<DataResponse<List<ProvinceItem>>>

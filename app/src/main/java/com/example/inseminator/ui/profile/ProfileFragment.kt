@@ -3,11 +3,15 @@ package com.example.inseminator.ui.profile
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.PopupWindow
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -34,6 +38,7 @@ class ProfileFragment : BaseFragment() {
     private val viewModel: LoginViewModel by viewModel()
     private lateinit var sessionViewModel: SessionViewModel
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("settings")
+    private lateinit var popupWindow: PopupWindow
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,21 +52,33 @@ class ProfileFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        profile()
         sessionViewModel = ViewModelProvider(
             this,
             ViewModelUserFactory(SessionRepository.getInstance(requireContext().dataStore))
         )[SessionViewModel::class.java]
-        binding?.btLogout?.setOnClickListener {
+        val inflater = LayoutInflater.from(requireContext())
+        val popupView = inflater.inflate(R.layout.custom_popup_menu, null)
+        popupWindow = PopupWindow(
+            popupView,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+        )
+        val backgroundDrawable = ColorDrawable(Color.TRANSPARENT)
+        popupWindow.setBackgroundDrawable(backgroundDrawable)
+        popupWindow.isOutsideTouchable = true
+
+        val btnEdit = popupView.findViewById<LinearLayout>(R.id.btn_edit)
+        val btnLogout = popupView.findViewById<LinearLayout>(R.id.btn_logout)
+
+        btnLogout.setOnClickListener {
             logout()
         }
-        binding?.btEdit?.setOnClickListener {
-            val intent = Intent (requireContext(), EditProfileActivity::class.java)
+        btnEdit.setOnClickListener {
+            val intent = Intent(requireContext(), EditProfileActivity::class.java)
             startActivity(intent)
         }
-        binding?.btEditpass?.setOnClickListener {
-            val intent = Intent (requireContext(), EditProfileActivity::class.java)
-            startActivity(intent)
+        binding?.menu?.setOnClickListener {
+            popupWindow.showAsDropDown(binding?.menu)
         }
 
     }
@@ -113,5 +130,10 @@ class ProfileFragment : BaseFragment() {
         builder.setMessage("Klik Ya jika ingin keluar!!")
         builder.create().show()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        profile()
     }
 }
