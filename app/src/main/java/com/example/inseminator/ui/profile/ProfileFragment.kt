@@ -67,15 +67,10 @@ class ProfileFragment : BaseFragment() {
         popupWindow.setBackgroundDrawable(backgroundDrawable)
         popupWindow.isOutsideTouchable = true
 
-        val btnEdit = popupView.findViewById<LinearLayout>(R.id.btn_edit)
         val btnLogout = popupView.findViewById<LinearLayout>(R.id.btn_logout)
 
         btnLogout.setOnClickListener {
             logout()
-        }
-        btnEdit.setOnClickListener {
-            val intent = Intent(requireContext(), EditProfileActivity::class.java)
-            startActivity(intent)
         }
         binding?.menu?.setOnClickListener {
             popupWindow.showAsDropDown(binding?.menu)

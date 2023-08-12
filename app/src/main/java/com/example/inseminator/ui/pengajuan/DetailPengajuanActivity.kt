@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.inseminator.R
 import com.example.inseminator.core.adapter.PengajuanAdapter
@@ -41,7 +42,7 @@ class DetailPengajuanActivity : BaseActivity() {
         detailpengajuan()
 
         binding?.btnKonfirmasi?.setOnClickListener {
-            konfirmasi()
+            showConfirmationDialog()
         }
     }
 
@@ -53,7 +54,11 @@ class DetailPengajuanActivity : BaseActivity() {
         binding?.tvJenisSemen?.text = ternak.rumpun.nama
         binding?.tvTglBirahi?.text = ternak.waktu_birahi
         binding?.tvJamBirahi?.text = ternak.jam_birahi
-        binding?.tvTglIb?.text = ternak.tgl_ib
+        if (ternak.tgl_ib != null) {
+            binding?.tvTglIb?.text = ternak.tgl_ib
+        } else {
+            binding?.tvTglIb?.text = "Belum Diinseminasi"
+        }
         if (ternak.status_kebuntingan == "0") {
             binding?.tvBunting?.text = "Belum Bunting"
         } else if (ternak.status_kebuntingan == "1") {
@@ -77,34 +82,39 @@ class DetailPengajuanActivity : BaseActivity() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         return dateFormat.format(calendar.time)
     }
-    private fun konfirmasi() {
-        viewModel.konfirmasi(idib,"Bearer ${LoginActivity.TOKEN_KEY}", KonfirmasiRequest(getCurrentDate()))
-            .observe(this){
-                when (it.state) {
-                    State.SUCCESS -> {
-                        progress.dismiss()
-                        val successMessage = "Inseminasi berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
-                        Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
+    private fun showConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Apakah Anda yakin ingin mengkonfirmasi inseminasi?")
+        builder.setPositiveButton("Ya") { dialog, which ->
+            viewModel.konfirmasi(idib,"Bearer ${LoginActivity.TOKEN_KEY}", KonfirmasiRequest(getCurrentDate()))
+                .observe(this){
+                    when (it.state) {
+                        State.SUCCESS -> {
+                            progress.dismiss()
+                            val successMessage = "Inseminasi berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
+                            Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
 
-                        val intent = Intent(this, HistoryActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                            val intent = Intent(this, HistoryActivity::class.java)
+                            startActivity(intent)
+                            finishAffinity()
 
-                    }
-                    State.LOADING -> {
-                        progress.show()
-                    }
+                        }
+                        State.LOADING -> {
+                            progress.show()
+                        }
 
-                    State.ERROR -> {
-                        progress.dismiss()
-                        val errorMessage = "Inseminasi berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
-                        Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
-
-                        val intent = Intent(this, HistoryActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                        State.ERROR -> {
+                            progress.dismiss()
+                            toastError(it.message.toString())
+                        }
                     }
                 }
-            }
+        }
+        builder.setNegativeButton("Tidak") { dialog, which ->
+            // Tidak perlu melakukan apa-apa karena pengguna memilih "Tidak"
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 }

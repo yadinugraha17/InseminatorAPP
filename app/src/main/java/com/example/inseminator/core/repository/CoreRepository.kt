@@ -3,6 +3,7 @@ package com.example.inseminator.core.repository
 import com.example.inseminator.core.data.api.RemoteDataSource
 import com.example.inseminator.core.data.api.network.Resource
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
+import com.example.inseminator.core.data.api.request.LahirRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
 import com.example.inseminator.core.data.api.request.ProfileRequest
 import com.example.inseminator.core.data.api.request.UpbuntingRequest
@@ -217,6 +218,22 @@ class CoreRepository (private val remoteDataSource: RemoteDataSource)  {
         emit(Resource.loading(null))
         try {
             remoteDataSource.upbunting(id, token, upbuntingRequest).let {
+                if (it.isSuccessful){
+                    val body = it.body()
+                    val user = body?.data
+                    emit(Resource.success(user))
+                }
+                else {
+                    emit(Resource.error(it.getErrorBody(DataResponse::class.java)?.message ?:"", null))
+                }
+            }
+        }
+        catch (e: Exception){emit(Resource.error(e.message?:"Terjadi Kesalahan", null))}
+    }
+   fun lahir (id: Int, token: String, lahirRequest: LahirRequest) = flow {
+        emit(Resource.loading(null))
+        try {
+            remoteDataSource.lahir(id, token, lahirRequest).let {
                 if (it.isSuccessful){
                     val body = it.body()
                     val user = body?.data

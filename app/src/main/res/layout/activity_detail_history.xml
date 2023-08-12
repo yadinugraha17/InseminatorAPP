@@ -173,12 +173,26 @@
             android:layout_height="wrap_content"
             android:text="@string/text_status" />
 
-        <Button
-            android:id="@+id/BT_lahir"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:text="@string/text_konfbunting"/>
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/BT_bunting"
+                android:layout_width="@dimen/_135sdp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="@string/text_konfbunting"/>
+
+            <Button
+                android:id="@+id/BT_lahir"
+                android:layout_width="@dimen/_130sdp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="@string/text_konflahir"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

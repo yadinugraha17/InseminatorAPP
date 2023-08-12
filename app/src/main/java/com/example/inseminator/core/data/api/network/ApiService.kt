@@ -1,6 +1,7 @@
 package com.example.inseminator.core.data.api.network
 
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
+import com.example.inseminator.core.data.api.request.LahirRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
 import com.example.inseminator.core.data.api.request.ProfileRequest
 import com.example.inseminator.core.data.api.request.UpbuntingRequest
@@ -67,6 +68,9 @@ interface ApiService {
 
     @PUT("update/kebuntingan/{id}")
     suspend fun upbunting(@Path("id") id: Int, @Header("Authorization") token: String , @Body upbuntingRequest: UpbuntingRequest): Response<DataResponse<List<KonfirmasiItem>>>
+
+    @PUT("update/lahir/{id}")
+    suspend fun lahir(@Path("id") id: Int, @Header("Authorization") token: String , @Body lahirRequest: LahirRequest): Response<DataResponse<List<KonfirmasiItem>>>
 
     @GET("notifikasi")
     suspend fun notifikasi(@Header("Authorization") token: String): Response<DataResponse<List<NotifikasiItem>>>

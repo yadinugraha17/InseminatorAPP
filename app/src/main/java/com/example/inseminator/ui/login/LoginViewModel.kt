@@ -3,6 +3,7 @@ package com.example.inseminator.ui.login
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
+import com.example.inseminator.core.data.api.request.LahirRequest
 import com.example.inseminator.core.data.api.request.LoginRequest
 import com.example.inseminator.core.data.api.request.ProfileRequest
 import com.example.inseminator.core.data.api.request.UpbuntingRequest
@@ -25,6 +26,7 @@ class LoginViewModel (private val coreRepository: CoreRepository):ViewModel() {
     fun pengajuan (token: String)= coreRepository.pengajuan(token).asLiveData()
     fun konfirmasi (id:Int, token: String, konfirmasiRequest: KonfirmasiRequest)= coreRepository.konfirmasi(id, token, konfirmasiRequest).asLiveData()
     fun upbunting (id:Int, token: String, upbuntingRequest: UpbuntingRequest)= coreRepository.upbunting(id, token, upbuntingRequest).asLiveData()
+    fun lahir (id:Int, token: String, lahirRequest: LahirRequest)= coreRepository.lahir(id, token, lahirRequest).asLiveData()
     fun notifikasi (token: String)= coreRepository.notifikasi(token).asLiveData()
     fun countnotif(token: String)=coreRepository.countnotif(token).asLiveData()
     fun upnotif(token: String, id: Int)=coreRepository.upnotif(token, id).asLiveData()

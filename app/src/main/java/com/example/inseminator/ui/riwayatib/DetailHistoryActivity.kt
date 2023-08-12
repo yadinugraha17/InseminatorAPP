@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.inseminator.R
 import com.example.inseminator.core.data.api.network.State
 import com.example.inseminator.core.data.api.request.KonfirmasiRequest
+import com.example.inseminator.core.data.api.request.LahirRequest
 import com.example.inseminator.core.data.api.request.UpbuntingRequest
 import com.example.inseminator.core.data.api.response.item.PengajuanItem
 import com.example.inseminator.databinding.ActivityDetailHistoryBinding
@@ -35,9 +37,13 @@ class DetailHistoryActivity : BaseActivity() {
         root = binding?.root
         setContentView(root)
         detailhistory()
-        binding?.BTLahir?.setOnClickListener {
+        binding?.BTBunting?.setOnClickListener {
             bunting()
         }
+        binding?.BTLahir?.setOnClickListener {
+            lahir(1)
+        }
+
     }
 
     private fun detailhistory () {
@@ -75,29 +81,72 @@ class DetailHistoryActivity : BaseActivity() {
         return dateFormat.format(calendar.time)
     }
     private fun bunting() {
-        viewModel.upbunting(idib,"Bearer ${LoginActivity.TOKEN_KEY}", UpbuntingRequest(getCurrentDate()))
-            .observe(this){
-                when (it.state) {
-                    State.SUCCESS -> {
-                        progress.dismiss()
-                        val successMessage = "Bunting berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
-                        Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Apakah Anda yakin ingin mengkonfirmasi inseminasi?")
+        builder.setPositiveButton("Ya") { dialog, which ->
+            viewModel.upbunting(idib,"Bearer ${LoginActivity.TOKEN_KEY}", UpbuntingRequest(getCurrentDate()))
+                .observe(this){
+                    when (it.state) {
+                        State.SUCCESS -> {
+                            progress.dismiss()
+                            val successMessage = "Bunting berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
+                            Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
 
-                        val intent = Intent(this, HistoryActivity::class.java)
-                        startActivity(intent)
-                        finish()
+                            val intent = Intent(this, HistoryActivity::class.java)
+                            startActivity(intent)
+                            finish()
 
-                    }
-                    State.LOADING -> {
-                        progress.show()
-                    }
+                        }
+                        State.LOADING -> {
+                            progress.show()
+                        }
 
-                    State.ERROR -> {
-                        progress.dismiss()
-                        toastError(it.message.toString())
+                        State.ERROR -> {
+                            progress.dismiss()
+                            toastError(it.message.toString())
+                        }
                     }
                 }
-            }
+        }
+        builder.setNegativeButton("Tidak") { dialog, which ->
+            // Tidak perlu melakukan apa-apa karena pengguna memilih "Tidak"
+        }
+        val dialog = builder.create()
+        dialog.show()
+    }
+    private fun lahir(status: Int) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Konfirmasi")
+        builder.setMessage("Apakah Anda yakin ingin mengkonfirmasi kelahiran?")
+        builder.setPositiveButton("Ya") { dialog, which ->
+            viewModel.lahir(idib, "Bearer ${LoginActivity.TOKEN_KEY}", LahirRequest(""))
+                .observe(this) {
+                    when (it.state) {
+                        State.SUCCESS -> {
+                            progress.dismiss()
+                            val successMessage = "Kelahiran berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
+                            Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
+
+                            val intent = Intent(this, HistoryActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                        State.LOADING -> {
+                            progress.show()
+                        }
+                        State.ERROR -> {
+                            progress.dismiss()
+                            toastError(it.message.toString())
+                        }
+                    }
+                }
+        }
+        builder.setNegativeButton("Tidak") { dialog, which ->
+            // Tidak perlu melakukan apa-apa karena pengguna memilih "Tidak"
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }
