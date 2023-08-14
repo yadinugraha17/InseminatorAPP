@@ -31,7 +31,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.LibraryViewHolder>() 
             }
             with(binding) {
                 tvSapi.text = HistoryItem.ternak.no_regis
-                tvNamainseminator.text = HistoryItem.insiminator.nama
+                tvNamainseminator.text = HistoryItem.peternak.nama
 
             }
 

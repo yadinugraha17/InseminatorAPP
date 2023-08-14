@@ -31,7 +31,7 @@ class PengajuanAdapter : RecyclerView.Adapter<PengajuanAdapter.LibraryViewHolder
             }
             with(binding) {
                 tvSapi.text = PengajuanItem.ternak.no_regis
-                tvNamainseminator.text = PengajuanItem.insiminator.nama
+                tvNamainseminator.text = PengajuanItem.peternak.nama
 
             }
 

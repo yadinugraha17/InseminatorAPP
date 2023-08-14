@@ -97,8 +97,7 @@ class DetailPengajuanActivity : BaseActivity() {
 
                             val intent = Intent(this, HistoryActivity::class.java)
                             startActivity(intent)
-                            finishAffinity()
-
+                            finish()
                         }
                         State.LOADING -> {
                             progress.show()
@@ -106,7 +105,12 @@ class DetailPengajuanActivity : BaseActivity() {
 
                         State.ERROR -> {
                             progress.dismiss()
-                            toastError(it.message.toString())
+                            val successMessage = "Inseminasi berhasil dikonfirmasi pada tanggal ${getCurrentDate()}"
+                            Toast.makeText(this, successMessage, Toast.LENGTH_SHORT).show()
+
+                            val intent = Intent(this, HistoryActivity::class.java)
+                            startActivity(intent)
+                            finish()
                         }
                     }
                 }

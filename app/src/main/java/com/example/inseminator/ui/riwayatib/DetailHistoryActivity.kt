@@ -54,8 +54,16 @@ class DetailHistoryActivity : BaseActivity() {
         binding?.tvJenisSemen?.text = ternak.rumpun.nama
         binding?.tvTglBirahi?.text = ternak.waktu_birahi
         binding?.tvJamBirahi?.text = ternak.jam_birahi
-        binding?.tvTglIb?.text = ternak.tgl_ib
-        binding?.tvTglBunting?.text = ternak.tgl_pkb
+        if (ternak.tgl_ib != null) {
+            binding?.tvTglIb?.text = ternak.tgl_ib
+        } else {
+            binding?.tvTglIb?.text = "Belum Diinseminasi"
+        }
+        if (ternak.tgl_pkb !=null){
+            binding?.tvTglBunting?.text = ternak.tgl_pkb
+        }else{
+            binding?.tvTglBunting?.text = "Belum Bunting"
+        }
         if (ternak.status_kebuntingan == "0") {
             binding?.tvBunting?.text = "Belum Bunting"
         } else if (ternak.status_kebuntingan == "1") {
@@ -116,6 +124,13 @@ class DetailHistoryActivity : BaseActivity() {
         dialog.show()
     }
     private fun lahir(status: Int) {
+        val json = intent?.getStringExtra("history")
+        val ternak = Gson().fromJson(json, PengajuanItem::class.java)
+
+        if (ternak.status_kebuntingan == "0") {
+            toastError( "Konfirmasi bunting belum terisi")
+            return
+        }
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Konfirmasi")
         builder.setMessage("Apakah Anda yakin ingin mengkonfirmasi kelahiran?")

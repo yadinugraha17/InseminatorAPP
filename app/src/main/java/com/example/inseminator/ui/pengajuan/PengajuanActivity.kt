@@ -55,7 +55,7 @@ class PengajuanActivity : BaseActivity() {
                                 )
                                 intent.putExtra("pengajuan", json)
                                 startActivity(intent)
-
+                                finish()
                             }
 
                         }))

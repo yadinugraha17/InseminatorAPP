@@ -56,7 +56,6 @@ class HistoryActivity : BaseActivity() {
                                 )
                                 intent.putExtra("history", json)
                                 startActivity(intent)
-
                             }
 
                         }))
