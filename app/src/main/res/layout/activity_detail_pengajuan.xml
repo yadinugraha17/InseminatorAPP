@@ -57,15 +57,47 @@
             style="@style/poppins_semibold_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/text_peternak"
+            android:textColor="@color/black" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+            <TextView
+                android:id="@+id/tv_peternak"
+                style="@style/poppins_regular_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:text="@string/text_xxx" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            style="@style/poppins_semibold_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/text_id_sapi"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_noregis"
-            style="@style/poppins_regular_style"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_xxx" />
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+            <TextView
+                android:id="@+id/tv_noregis"
+                style="@style/poppins_regular_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:text="@string/text_xxx" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             style="@style/poppins_semibold_style"
@@ -75,27 +107,46 @@
             android:text="@string/text_jenissemen"
             android:textColor="@color/black" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+
         <TextView
             android:id="@+id/tv_jenis_semen"
             style="@style/poppins_regular_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_gravity="center"
             android:text="@string/text_jenissapi" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             style="@style/poppins_semibold_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/text_tanggalbirahi"
+            android:text="@string/text_tglbirahi"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_tgl_birahi"
-            style="@style/poppins_regular_style"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_tanggal" />
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+
+            <TextView
+                android:id="@+id/tv_tgl_birahi"
+                style="@style/poppins_regular_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:text="@string/text_tanggal" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             style="@style/poppins_semibold_style"
@@ -105,27 +156,46 @@
             android:text="@string/text_waktubirahi"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_jam_birahi"
-            style="@style/poppins_regular_style"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_tanggal" />
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+
+            <TextView
+                android:id="@+id/tv_jam_birahi"
+                style="@style/poppins_regular_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:text="@string/text_tanggal" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             style="@style/poppins_semibold_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:text="@string/text_waktuib"
+            android:text="@string/text_tglib"
             android:textColor="@color/black" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
 
         <TextView
             android:id="@+id/tv_tgl_ib"
             style="@style/poppins_regular_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_5sdp"
             android:text="@string/text_tanggal" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             style="@style/poppins_semibold_style"
@@ -135,12 +205,22 @@
             android:text="@string/text_infobunting"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_bunting"
-            style="@style/poppins_regular_style"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_belum" />
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+
+            <TextView
+                android:id="@+id/tv_bunting"
+                style="@style/poppins_regular_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:text="@string/text_belum" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             style="@style/poppins_semibold_style"
@@ -150,12 +230,22 @@
             android:text="@string/text_status"
             android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_lahir"
-            style="@style/poppins_regular_style"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/text_status" />
+            android:layout_height="@dimen/_30sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardBackgroundColor="@color/shadow">
+
+            <TextView
+                android:id="@+id/tv_lahir"
+                style="@style/poppins_regular_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:text="@string/text_status" />
+
+        </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/btn_konfirmasi"

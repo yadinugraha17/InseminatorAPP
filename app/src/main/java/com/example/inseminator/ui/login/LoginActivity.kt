@@ -60,6 +60,7 @@ class LoginActivity : BaseActivity() {
                     progress.dismiss()
                     val respon = it.data
                     val token = respon!![0].token
+                    TOKEN_KEY = token
                     val login = LoginItem(token, respon[0].user_id, true)
                     val sessionRepository =
                         SessionRepository.getInstance(this.datastore)
@@ -69,7 +70,6 @@ class LoginActivity : BaseActivity() {
 
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)
-                    toastSuccess(token.toString())
                 }
 
                 State.LOADING -> {
