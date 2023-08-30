@@ -1,5 +1,7 @@
 package com.example.inseminator.ui.pengajuan
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +24,7 @@ import com.example.inseminator.ui.riwayatib.HistoryActivity
 import com.google.gson.Gson
 import com.inyongtisto.myhelper.base.BaseActivity
 import com.inyongtisto.myhelper.extension.toastError
+import com.inyongtisto.myhelper.extension.toastSuccess
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -40,6 +43,10 @@ class DetailPengajuanActivity : BaseActivity() {
         root = binding?.root
         setContentView(root)
         detailpengajuan()
+        binding?.copy?.setOnClickListener {
+            copyTextToClipboard(binding?.tvNohp?.text.toString())
+            toastSuccess("No HP Berhasil Disalin")
+        }
 
         binding?.btnKonfirmasi?.setOnClickListener {
             showConfirmationDialog()
@@ -76,6 +83,7 @@ class DetailPengajuanActivity : BaseActivity() {
             // Jika nilainya bukan "0" atau "1", tampilkan nilai sebenarnya
             binding?.tvLahir?.text = ternak.status_lahir
         }
+        binding?.tvNohp?.text = ternak.peternak.no_hp
     }
     private fun getCurrentDate(): String {
         val calendar = Calendar.getInstance()
@@ -120,5 +128,10 @@ class DetailPengajuanActivity : BaseActivity() {
         }
         val dialog = builder.create()
         dialog.show()
+    }
+    private fun copyTextToClipboard(text: String) {
+        val clipboard = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = android.content.ClipData.newPlainText("No Hp Tersalin", text)
+        clipboard.setPrimaryClip(clip)
     }
 }
