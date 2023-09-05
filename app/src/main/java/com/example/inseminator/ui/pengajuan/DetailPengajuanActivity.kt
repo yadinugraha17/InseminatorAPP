@@ -57,6 +57,7 @@ class DetailPengajuanActivity : BaseActivity() {
         val json = intent?.getStringExtra("pengajuan")
         val ternak = Gson().fromJson(json, PengajuanItem::class.java)
         idib = ternak.id
+        binding?.tvPeternak?.text = ternak.peternak.nama
         binding?.tvNoregis?.text = ternak.ternak.no_regis
         binding?.tvJenisSemen?.text = ternak.rumpun.nama
         binding?.tvTglBirahi?.text = ternak.waktu_birahi
